@@ -2,112 +2,124 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 
-const Login = () => {
+export default function Login() {
   const navigate = useNavigate();
 
-  const [loginData, setLoginData] = useState({ email: '', password: '' });
-  const [registerData, setRegisterData] = useState({
+  const [loginForm, setLoginForm] = useState({ email: '', password: '' });
+  const [registerForm, setRegisterForm] = useState({
     name: '',
     lastname: '',
     email: '',
     password: '',
-    password_confirmation: '',
   });
 
-  const handleLogin = async (e) => {
+  const handleLoginChange = e => {
+    setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
+  };
+
+  const handleRegisterChange = e => {
+    setRegisterForm({ ...registerForm, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = async e => {
     e.preventDefault();
     try {
-      const res = await api.post('/auth/login', loginData);
-      const token = res.data.token;
-      localStorage.setItem('token', token);
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      const res = await api.post('/auth/login', loginForm);
+      localStorage.setItem('token', res.data.token);
       navigate('/');
     } catch (err) {
-      alert('Échec de la connexion');
+      console.error('Login error:', err);
+      alert('Login failed. Please check your credentials.');
     }
   };
 
-  const handleRegister = async (e) => {
+  const handleRegister = async e => {
     e.preventDefault();
     try {
-      const res = await api.post('/auth/register', registerData);
-      const token = res.data.user.token;
-      localStorage.setItem('token', token);
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      const res = await api.post('/auth/register', registerForm);
+      localStorage.setItem('token', res.data.token);
       navigate('/');
     } catch (err) {
-      alert('Erreur lors de la création du compte');
+      console.error('Registration error:', err);
+      alert('Registration failed. Please try again.');
     }
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Connexion</h2>
-      <form onSubmit={handleLogin} className="mb-6 grid grid-cols-2 gap-4">
-        <input
-          type="email"
-          placeholder="Email"
-          className="border p-2 rounded"
-          value={loginData.email}
-          onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
-        />
-        <input
-          type="password"
-          placeholder="Mot de passe"
-          className="border p-2 rounded"
-          value={loginData.password}
-          onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
-        />
-        <button type="submit" className="col-span-2 bg-blue-600 text-white py-2 rounded">
-          Se connecter
-        </button>
-      </form>
+    <div className="max-w-4xl mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* Login Form */}
+      <div className="p-6 border rounded shadow bg-white">
+        <h2 className="text-xl font-bold mb-4">Login</h2>
+        <form onSubmit={handleLogin} className="grid gap-4">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={loginForm.email}
+            onChange={handleLoginChange}
+            className="border p-2 rounded"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={loginForm.password}
+            onChange={handleLoginChange}
+            className="border p-2 rounded"
+            required
+          />
+          <button type="submit" className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+            Login
+          </button>
+        </form>
+      </div>
 
-      <h2 className="text-2xl font-bold mb-4">Créer un compte</h2>
-      <form onSubmit={handleRegister} className="grid grid-cols-2 gap-4">
-        <input
-          type="text"
-          placeholder="Nom"
-          className="border p-2 rounded"
-          value={registerData.name}
-          onChange={(e) => setRegisterData({ ...registerData, name: e.target.value })}
-        />
-        <input
-          type="text"
-          placeholder="Prénom"
-          className="border p-2 rounded"
-          value={registerData.lastname}
-          onChange={(e) => setRegisterData({ ...registerData, lastname: e.target.value })}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          className="border p-2 rounded"
-          value={registerData.email}
-          onChange={(e) => setRegisterData({ ...registerData, email: e.target.value })}
-        />
-        <input
-          type="password"
-          placeholder="Mot de passe"
-          className="border p-2 rounded"
-          value={registerData.password}
-          onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })}
-        />
-        <input
-          type="password"
-          placeholder="Confirmer le mot de passe"
-          className="border p-2 rounded"
-          value={registerData.password_confirmation}
-          onChange={(e) =>
-            setRegisterData({ ...registerData, password_confirmation: e.target.value })
-          }
-        />
-        <button type="submit" className="col-span-2 bg-green-600 text-white py-2 rounded">
-          Créer un compte
-        </button>
-      </form>
+      {/* Registration Form */}
+      <div className="p-6 border rounded shadow bg-white">
+        <h2 className="text-xl font-bold mb-4">Create Account</h2>
+        <form onSubmit={handleRegister} className="grid gap-4">
+          <input
+            type="text"
+            name="name"
+            placeholder="First Name"
+            value={registerForm.name}
+            onChange={handleRegisterChange}
+            className="border p-2 rounded"
+            required
+          />
+          <input
+            type="text"
+            name="lastname"
+            placeholder="Last Name"
+            value={registerForm.lastname}
+            onChange={handleRegisterChange}
+            className="border p-2 rounded"
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={registerForm.email}
+            onChange={handleRegisterChange}
+            className="border p-2 rounded"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={registerForm.password}
+            onChange={handleRegisterChange}
+            className="border p-2 rounded"
+            required
+          />
+          <button type="submit" className="bg-green-600 text-white p-2 rounded hover:bg-green-700">
+            Register
+          </button>
+        </form>
+      </div>
     </div>
   );
-};
-
-export default Login;
+}
