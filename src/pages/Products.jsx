@@ -100,7 +100,7 @@ export default function Products() {
         </select>
         <button
           type="submit"
-          className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+          className="text-black p-2 rounded"
         >
           Submit
         </button>

@@ -18,11 +18,11 @@ const Home = () => {
         <table className="min-w-full table-auto border-collapse border border-gray-400 rounded shadow">
           <thead>
             <tr className="bg-gray-800 text-white">
-              <th className="border border-gray-400 px-4 py-2 font-bold">Name</th>
-              <th className="border border-gray-400 px-4 py-2 font-bold">Description</th>
-              <th className="border border-gray-400 px-4 py-2 font-bold">Quantity</th>
-              <th className="border border-gray-400 px-4 py-2 font-bold">Price</th>
-              <th className="border border-gray-400 px-4 py-2 font-bold">Category</th>
+              <th className="border border-gray-400 px-4 py-2 font-bold text-black">Name</th>
+              <th className="border border-gray-400 px-4 py-2 font-bold text-black">Description</th>
+              <th className="border border-gray-400 px-4 py-2 font-bold text-black">Quantity</th>
+              <th className="border border-gray-400 px-4 py-2 font-bold text-black">Price</th>
+              <th className="border border-gray-400 px-4 py-2 font-bold text-black">Category</th>
             </tr>
           </thead>
           <tbody>
