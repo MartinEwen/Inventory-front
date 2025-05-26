@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Category from './pages/Category';
 import Products from './pages/Products';
+import LowStock from './pages/Low';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/categories" element={<Category />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/products/low-stock" element={<LowStock />} />
         </Routes>
       </div>
     </Router>
