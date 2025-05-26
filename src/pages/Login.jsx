@@ -47,7 +47,6 @@ export default function Login() {
 
   return (
     <div className="max-w-4xl mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
-      {/* Login Form */}
       <div className="p-6 border rounded shadow bg-white">
         <h2 className="text-xl font-bold mb-4">Login</h2>
         <form onSubmit={handleLogin} className="grid gap-4">
@@ -75,7 +74,6 @@ export default function Login() {
         </form>
       </div>
 
-      {/* Registration Form */}
       <div className="p-6 border rounded shadow bg-white">
         <h2 className="text-xl font-bold mb-4">Create Account</h2>
         <form onSubmit={handleRegister} className="grid gap-4">
